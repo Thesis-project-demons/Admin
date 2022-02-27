@@ -81,9 +81,8 @@ export default function Sidebar(props) {
     </List>
   );
   var brand = (
-    <div className={classes.logo}>
+    <div className={classes.logo} onClick={()=>{router.push('/admin/dashboard')}}>
       <a
-        href="https://www.creative-tim.com?ref=njsmd-sidebar"
         className={classNames(classes.logoLink, {
           [classes.logoLinkRTL]: props.rtlActive,
         })}

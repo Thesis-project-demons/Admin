@@ -10,6 +10,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import { useRouter } from "next/router";
+import axios from 'axios';
 const styles = {
     cardCategoryWhite: {
       color: "rgba(255,255,255,.62)",
@@ -41,8 +42,15 @@ const login = () => {
     const classes = useStyles();
     let obj={}
     const click=(e)=>{
-      // window.location.href="http://localhost:3000/admin/user-profile"
-      router.push('/admin/dashboard')
+      axios.post("http://localhost:5000/admin/login",obj).then((res)=>{
+        if(res.data.msg === "Logged in!"){
+          router.push('/admin/dashboard')
+          localStorage.setItem('user',JSON.stringify(res.data.user))
+        }else{
+          router.push('/admin/login')
+          alert("incorrect info")
+        }
+      })
     }
 
   return (
@@ -69,6 +77,7 @@ const login = () => {
                             <GridItem xs={12} sm={12} md={15}>
                                 <CustomInput
                                  obj={obj}
+                                 type={"password"}
                                   labelText="password"
                                   id="password"
                                   formControlProps={{
