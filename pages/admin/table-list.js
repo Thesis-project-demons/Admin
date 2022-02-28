@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // layout for this page
@@ -10,6 +10,7 @@ import Table from "components/Table/Table.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
+import axios from "axios";
 
 const styles = {
   cardCategoryWhite: {
@@ -44,8 +45,16 @@ const styles = {
 function TableList() {
   const useStyles = makeStyles(styles);
   const classes = useStyles();
+  var [getAllMechanic,setgetAllMechanic] =useState([])
+  var [getAllUsers,setgetAllUsers] =useState([])
+  useEffect(()=>{
+    axios.get("http://localhost:5000/admin/getAllMechanic").then((res)=>setgetAllMechanic(res.data))
+    //  getAllUsers
+    axios.get("http://localhost:5000/admin/getAllUsers").then((res)=>setgetAllUsers(res.data))
+  },[])
   return (
     <GridContainer>
+        {console.log(getAllMechanic,"vv",getAllUsers)}
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
@@ -57,15 +66,8 @@ function TableList() {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"],
-              ]}
+              tableHead={["ID","Email","Password","IP","Login Time","Stars","Subscription","ban"]}
+            tableData={getAllMechanic.map(data=>{return Object.values(data)})}
             />
           </CardBody>
         </Card>
@@ -83,27 +85,8 @@ function TableList() {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["ID", "Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
-                ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
-                ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],
-                [
-                  "4",
-                  "Philip Chaney",
-                  "$38,735",
-                  "Korea, South",
-                  "Overland Park",
-                ],
-                [
-                  "5",
-                  "Doris Greene",
-                  "$63,542",
-                  "Malawi",
-                  "Feldkirchen in Kärnten",
-                ],
-                ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"],
-              ]}
+              tableHead={["UserName", "ID", "Email", "Password", "IP","Last Time Logged","Login Time ","ban"]}
+              tableData={getAllUsers.map(data=>{return Object.values(data)})}
             />
           </CardBody>
         </Card>

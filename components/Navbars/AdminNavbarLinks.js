@@ -45,9 +45,15 @@ export default function AdminNavbarLinks() {
     }
   };
   const handleCloseProfile = (e) => {
-    e.preventDefault( )
+    e.preventDefault()
     router.push("/admin/user-profile")
     setOpenProfile(null);
+  };
+  const logout = (e) => {
+    e.preventDefault()
+    router.push("/admin/login")
+    setOpenProfile(null);
+    localStorage.removeItem('user')
   };
   return (
     <div>
@@ -175,7 +181,7 @@ export default function AdminNavbarLinks() {
                     </MenuItem>
                     <Divider light />
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={(e)=>{handleCloseProfile(e);logout(e)}}
                       className={classes.dropdownItem}
                     >
                       Logout

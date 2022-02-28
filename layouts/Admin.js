@@ -47,6 +47,8 @@ export default function Admin({ children, ...rest }) {
   };
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+    
+    
   };
   const getRoute = () => {
     return router.pathname !== "/admin/maps";
@@ -78,7 +80,7 @@ export default function Admin({ children, ...rest }) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText={"Creative Tim"}
+        logoText={"Car-Care"}
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}

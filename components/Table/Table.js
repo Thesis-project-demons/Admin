@@ -7,15 +7,29 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+// import Button from "components/CustomButtons/Button.js";
+import IconButton from "@material-ui/core/IconButton";
+import Close from "@material-ui/icons/Close";
+import axios from "axios";
 // core components
 import styles from "assets/jss/nextjs-material-dashboard/components/tableStyle.js";
+
 
 export default function CustomTable(props) {
   const useStyles = makeStyles(styles);
   const classes = useStyles();
   const { tableHead, tableData, tableHeaderColor } = props;
+  const ban=(d)=>{
+    let num= d[0] 
+  if(typeof num  === "number"){
+    
+  }else{
+    num=d[1]
+    console.log("yoyoOO ",num)
+  }
+  }
   return (
-    <div className={classes.tableResponsive}>
+    <div className={classes.tableResponsive}> {console.log(tableData)}
       <Table className={classes.table}>
         {tableHead !== undefined ? (
           <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
@@ -41,9 +55,11 @@ export default function CustomTable(props) {
                   return (
                     <TableCell className={classes.tableCell} key={key}>
                       {prop}
+                      
                     </TableCell>
                   );
                 })}
+               <IconButton onClick={()=>{ban(prop)}}><Close/></IconButton>
               </TableRow>
             );
           })}
