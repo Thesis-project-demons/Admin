@@ -23,7 +23,9 @@ export default function CustomInput(props) {
     inputProps,
     error,
     success,
-    obj
+    obj,
+    type,
+    hidden
   } = props;
 
   const labelClasses = classNames({
@@ -39,7 +41,13 @@ export default function CustomInput(props) {
     [classes.marginTop]: labelText === undefined,
   });
   const change=(e)=>{
-    obj[e.target.id]=e.target.value
+    if(e.target.id==="img"){
+      obj[e.target.id]=e.target.files[0]
+
+    }else{
+      obj[e.target.id]=e.target.value
+    }
+    
 
  }
   return (
@@ -57,6 +65,7 @@ export default function CustomInput(props) {
         </InputLabel>
       ) : null}
       <Input
+      type={type}
       onChange={(e)=>{change(e)}}
         classes={{
           root: marginTop,
